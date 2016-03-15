@@ -26,4 +26,6 @@ python -m SimpleHTTPServer
 Check docker status
 ```
 sudo status docker
+sudo start docker
+sudo stop docker
 ```
