@@ -21,3 +21,9 @@ python -m SimpleHTTPServer
 - Ctrl [ : Escape
 - Ctrl T : Transpose chars
 - Ctrl C : Cancel line
+
+##Docker
+Check docker status
+```
+sudo status docker
+```
