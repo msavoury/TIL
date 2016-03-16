@@ -1,6 +1,8 @@
 # TIL
 Collection of Useful Things Learned
 
+- Install ```rlwrap``` to get history for readlines that don't support it (mit-scheme)
+
 Python Simple Server:
 ```
 python -m SimpleHTTPServer
