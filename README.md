@@ -75,3 +75,9 @@ docker top <container-name>
 ```
 docker stats <container-name>
 ```
+### Run process in container
+```
+docker exec -d <container-name> <command> # run in background
+docker exec -t -i <container-name> /bin/sh # open prompt and run commands interactively
+```
+
