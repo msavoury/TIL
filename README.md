@@ -59,3 +59,19 @@ docker start <container-name>
 ```
 docker attach <container-name>
 ```
+
+### View logs for container
+```
+docker logs <container-name>
+docker logs -f <container-name> # follow logs
+docker logs -t <container-name> # prefix with timestamps
+```
+
+### Inspect processes on container
+```
+docker top <container-name>
+```
+### Statistics for container
+```
+docker stats <container-name>
+```
