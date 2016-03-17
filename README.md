@@ -39,7 +39,18 @@ docker run -t -i --name my-container-name ubuntu /bin/sh
 - ```-t``` open up a tty
 - ```-i``` keep STDIN open on container
 - ```/bin/sh``` run this command on creation (giving us a prompt)
-### Check containers
+
+
+### Check containers status
 ```
 docker ps -a
+```
+
+### Starting a stopped container
+```
+docker start <container-name>
+```
+### Attach to a running container
+```
+docker attach <container-name>
 ```
