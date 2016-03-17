@@ -32,3 +32,14 @@ sudo start docker
 sudo stop docker
 sudo docker info
 ```
+### Create a new container 
+```
+docker run -t -i --name my-container-name ubuntu /bin/sh
+```
+- ```-t``` open up a tty
+- ```-i``` keep STDIN open on container
+- ```/bin/sh``` run this command on creation (giving us a prompt)
+### Check containers
+```
+docker ps -a
+```
