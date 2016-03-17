@@ -85,4 +85,8 @@ docker exec -t -i <container-name> /bin/sh # open prompt and run commands intera
 ```
 docker stop <container-name>
 ```
+### Remove a container
+```
+docker rm <container-name>
+```
 
