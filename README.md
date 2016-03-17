@@ -67,9 +67,10 @@ docker logs -f <container-name> # follow logs
 docker logs -t <container-name> # prefix with timestamps
 ```
 
-### Inspect processes on container
+### Inspect container
 ```
-docker top <container-name>
+docker top <container-name> #inspect processes
+docker inspect <container-name> #inspect container itself
 ```
 ### Statistics for container
 ```
@@ -79,5 +80,9 @@ docker stats <container-name>
 ```
 docker exec -d <container-name> <command> # run in background
 docker exec -t -i <container-name> /bin/sh # open prompt and run commands interactively
+```
+### Stopping a daemonized container
+```
+docker stop <container-name>
 ```
 
