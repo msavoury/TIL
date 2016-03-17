@@ -40,6 +40,11 @@ docker run -t -i --name my-container-name ubuntu /bin/sh
 - ```-i``` keep STDIN open on container
 - ```/bin/sh``` run this command on creation (giving us a prompt)
 
+### Create a new container in daemon mode
+```
+docker run -d --name my-container-name ubuntu /bin/sh
+```
+
 
 ### Check containers status
 ```
