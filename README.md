@@ -8,6 +8,11 @@ Python Simple Server:
 python -m SimpleHTTPServer
 ```
 
+Ruby Simple Server:
+```
+ruby -run -e httpd . -p 9090
+```
+
 ##Command line shortcuts
 - Ctrl P : Previous entry in history
 - Ctrl N : Next entry in history
