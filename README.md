@@ -12,6 +12,8 @@ Ruby Simple Server:
 ```
 ruby -run -e httpd . -p 9090
 ```
+## MySQL
+- use the ```mysqlimport``` utility to import data from flat files
 
 ##Command line shortcuts
 - Ctrl P : Previous entry in history
