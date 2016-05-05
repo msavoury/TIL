@@ -53,7 +53,7 @@ docker run -d --name my-container-name ubuntu /bin/sh
 ```
 
 
-### Check containers status
+### List all containers 
 ```
 docker ps -a
 ```
