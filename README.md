@@ -64,7 +64,9 @@ docker start <container-name>
 ```
 ### Attach to a running container
 ```
-docker attach <container-name>
+docker attach <container-name> # Use Ctrl P Ctrl Q to exit
+OR
+docker exec -it <container-name> bash #Type 'exit' to exit
 ```
 
 ### View logs for container
