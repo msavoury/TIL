@@ -19,6 +19,16 @@ A synchronized block contains:
 - 1 - A reference to an object that acts as the lock
 - 2 - The block of code guarded by that lock
 
+When a thread tries to enter synchronized code, it must first aquire the lock for that code. If the lock is already held by a different thred, the thread will block.
+
+Every java object can implicitly act as a lock for the purposes of synchronization.  These locks are called intrinsic locks or monitor locks. At most, one thread can own an intrinsic lock.
+
+Intrinsic locks are ```reentrant``` meaning that if a thread tries to acquire a lock which it already holds, the success will succeed. 
+
+###Synchronization Gotchas
+It is a MISTAKE to assume that synchronized blocks are only necessary when WRITING to shared variables.
+- If synchronization is used to manage access to a variable, synchronziation is needed EVERYWHERE that the variable is accessed.
+
 #Visibility
 - In general, there is no guarantee that a reading thread will see the changes made by a writing thread to a variable.
 - In order to prevent reading state data, the threads must synchronize on a common lock
