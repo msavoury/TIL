@@ -99,3 +99,8 @@ session object at the same time. Access to the session object should be
 synchronized, however, the Developer has the responsibility for synchronizing
 access to session resources as appropriate.
 
+##request dispatcher
+When building a Web application, it is often useful to forward processing of a
+request to another servlet, or to include the output of another servlet in the response.
+The RequestDispatcher interface provides a mechanism to accomplish this.
+
