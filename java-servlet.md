@@ -45,3 +45,57 @@ empty string.
 • PathInfo: The part of the request path that is not part of the Context Path or
 the Servlet Path. It is either null if there is no extra path, or is a string with a
 leading ‘/’
+
+
+## Servlet Context
+The ServletContext interface defines a servlet’s view of the Web application
+within which the servlet is running. The Container Provider is responsible for
+providing an implementation of the ServletContext interface in the servlet
+container. Using the ServletContext object, a servlet can log events, obtain URL
+references to resources, and set and store attributes that other servlets in the context
+can access.
+
+The following methods of the ServletContext interface allow the servlet access to
+context initialization parameters associated with a Web application as specified by
+the Application Developer in the deployment descriptor:
+• getInitParameter
+• getInitParameterNames
+
+A servlet can bind an object attribute into the context by name. Any attribute bound
+into a context is available to any other servlet that is part of the same Web
+application. The following methods of ServletContext interface allow access to
+this functionality:
+• setAttribute
+• getAttribute
+• getAttributeNames
+• removeAttribute
+
+The ServletContext interface provides direct access only to the hierarchy of static
+content documents that are part of the Web application, including HTML, GIF, and
+JPEG files, via the following methods of the ServletContext interface:
+• getResource
+• getResourceAsStream
+
+##Filters
+A filter is a reusable piece of code that can transform the content of HTTP requests,
+responses, and header information. Filters do not generally create a response or
+respond to a request as servlets do, rather they modify or adapt the requests for a
+resource, and modify or adapt responses from a resource. 
+
+A filter is declared using the <filter>
+element in the deployment descriptor. A filter or collection of filters can be
+configured for invocation by defining <filter-mapping> elements in the
+deployment descriptor. This is done by mapping filters to a particular servlet by
+the servlet’s logical name, or mapping to a group of servlets and static content
+resources by mapping a filter to a URL pattern
+
+Only one instance per <filter> declaration in the deployment descriptor is
+instantiated per JVM of the container.
+
+##sessions
+SRV.7.7.1 Threading Issues
+Multiple servlets executing request threads may have active access to a single
+session object at the same time. Access to the session object should be
+synchronized, however, the Developer has the responsibility for synchronizing
+access to session resources as appropriate.
+
