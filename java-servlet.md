@@ -104,3 +104,24 @@ When building a Web application, it is often useful to forward processing of a
 request to another servlet, or to include the output of another servlet in the response.
 The RequestDispatcher interface provides a mechanism to accomplish this.
 
+##Web Applications
+A special directory exists within the application hierarchy named “WEB-INF”.
+This directory contains all things related to the application that aren’t in the
+document root of the application. The WEB-INF node is not part of the public
+document tree of the application. No file contained in the WEB-INF directory may
+be served directly to a client by the container. However, the contents of the WEBINF
+directory are visible to servlet code using the getResource and getResourceAsStream
+method calls on the ServletContext, and may be exposed using the
+RequestDispatcher calls
+
+The contents of the WEB-INF directory are:
+• The /WEB-INF/web.xml deployment descriptor.
+• The /WEB-INF/classes/ directory for servlet and utility classes. The classes in
+this directory must be available to the application class loader.
+• The /WEB-INF/lib/*.jar area for Java ARchive files. These files contain servlets,
+beans, and other utility classes useful to the Web application. The Web application
+class loader must be able to load classes from any of these archive
+files.
+The Web application class loader must load classes from the WEB-INF/ classes
+directory first, and then from library JARs in the WEB-INF/lib directory.
+
