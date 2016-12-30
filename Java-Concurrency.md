@@ -82,3 +82,19 @@ CountDownLatch latch = new CountDownLatch(4);
 latch.countDown();
 latch.await(); //called from separate thread. will block until countDown called 3 more times
 ```
+###FutureTask
+//Fill In
+
+###Semaphores
+Counting semaphores are used to restrict the number of threads that can access a resource at the same time
+- A semaphore manages a set number of permits, and activities acquire permits, and then release them
+- Permits are obtained with ```acquire``` and released with ```release```
+- Java class used is ```Semaphore```
+
+###Barriers
+A barrier is essentially a latch that can be reused. But instead of waiting on an event,
+a barrier waits on a certain number of threads to reach the barrier. Once
+reached, it releases them all again and waits till the next round.
+//fill in
+
+
