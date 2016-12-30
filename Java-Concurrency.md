@@ -97,4 +97,25 @@ a barrier waits on a certain number of threads to reach the barrier. Once
 reached, it releases them all again and waits till the next round.
 //fill in
 
+## Executor Framework
+Provides a standard means of decoupling task submission from task execution,
+describing tasks with Runnable.
 
+```Executor``` is a java interface with one method: ```execute(Runnable r)```
+
+Example of a webserver implemented using an Executor
+```
+Executor exec = Executors.newFixedThreadPool(100);
+//...other code
+while(true) {
+  final Socket connection = socket.accept();
+  Runnable task = new Runnable() {
+    handleRequest(connection);
+  }
+  exec.execute(task);
+}
+```
+The advantage of this method is that one can easily change the implementation
+of the Executor to serve the application's needs.  In the above case, it is 
+using a thread pool, but it could be changed to use any of various Executor 
+implementations.
