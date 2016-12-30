@@ -39,3 +39,30 @@ It is a MISTAKE to assume that synchronized blocks are only necessary when WRITI
 public volatile int myInt;
 ```
 This guarantees that the compiler will not reorder memory operations regarding this variable and that the JVM will never cache its value is a processor-cache (thereby hiding it from other threads).  Its value will always be retrieved from main memory.
+
+##Synchronized Collections
+Even though synchronized collections are themselves thread-safe, compound actions 
+can cause clients to see unexpected results.  For this reason, it is important
+to synchronize on the lock of the collection itself
+```
+//Bad Version
+public static Object getLast(Vector list) {
+  int lastIndex = list.size() - 1;
+  return list.get(lastIndex);  //Nope! Possible outofboundexception here
+}
+//Good Version (synchronized on the list)
+public static Object getLast(Vector list) {
+  synchronized(list) {
+    int lastIndex = list.size() - 1;
+    return list.get(lastIndex);
+  }
+}
+```
+##Concurrent collections
+Java 5.0 added concurrent collections which improved upon the synchronized
+collections. Some of these classes include:
+- ConcurrentHashMap
+- ConcurrentSkipListMap
+- ConcurrentSkipListSet
+
+These classes provide better concurrency support
