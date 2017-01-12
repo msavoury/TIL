@@ -119,3 +119,6 @@ The advantage of this method is that one can easily change the implementation
 of the Executor to serve the application's needs.  In the above case, it is 
 using a thread pool, but it could be changed to use any of various Executor 
 implementations.
+
+###Timed Locks
+Explicit locks have a ```tryLock``` method which will try a lock for a specified period of time.   If the lock cannot be acquired during the specified time, it'll give you a chance to try something else.
