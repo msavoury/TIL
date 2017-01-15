@@ -122,3 +122,5 @@ implementations.
 
 ###Timed Locks
 Explicit locks have a ```tryLock``` method which will try a lock for a specified period of time.   If the lock cannot be acquired during the specified time, it'll give you a chance to try something else.
+
+```The principal threat to scalability in concurrent applications is the exclusive resource lock```
