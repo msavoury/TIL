@@ -124,3 +124,7 @@ implementations.
 Explicit locks have a ```tryLock``` method which will try a lock for a specified period of time.   If the lock cannot be acquired during the specified time, it'll give you a chance to try something else.
 
 ```The principal threat to scalability in concurrent applications is the exclusive resource lock```
+
+###Lock Striping
+Some data structures implement lock striping. This is when different subsets of the data structure use different locks to guard access. For example, a concurrent hash map may use different locks for different values in the map.  This increases performance.
+
