@@ -128,3 +128,31 @@ Explicit locks have a ```tryLock``` method which will try a lock for a specified
 ###Lock Striping
 Some data structures implement lock striping. This is when different subsets of the data structure use different locks to guard access. For example, a concurrent hash map may use different locks for different values in the map.  This increases performance.
 
+#Explicit Locks
+Java 5.0 added ```ReentrantLock```s as part of the standard library. They are an advanced lock that can be used when intrinsic locking proves to be too limited.
+
+You *MUST* unlock the lock in a finally block, to prevent issues if an exception occurs during the 'try':
+```
+Lock myLock = new ReentrantLock();
+try {
+  myLock.lock();
+}
+finally {
+  lock.unlock();
+}
+```
+##tryLock
+The ```tryLock``` method will wait at most a specified period to acquire the lock, else it will return false:
+```
+if (!lock.tryLock(4000,NANOSECONDS)) {
+   return false;
+}
+//here the lock has been acquired
+try {
+  //code requiring lock goes here
+}
+finally {
+   //release lock in finally block
+   lock.unlock();
+}
+```
