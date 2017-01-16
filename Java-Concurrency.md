@@ -156,3 +156,12 @@ finally {
    lock.unlock();
 }
 ```
+//TODO: Explain lock.lockinterruptibly()
+
+###Fairness
+Reentrant locks allow you to specify whether the lock should be fair or unfair.  Fair locks require that the lock be acquired in the order in which the threads request the lock. Unfair locks do not provide this guarantee. (A thread may jump to front of queue and acquire lock)
+
+In practice unfair locks perform better since an order doesn't have to be guaranteed.
+
+##ReadWriteLocks
+ReadWriteLocks allow for multiple readers or only ONE writer at a time.  They can provide better concurrent peformance when reads are frequent and writes are rare.
