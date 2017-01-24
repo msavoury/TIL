@@ -169,4 +169,8 @@ ReadWriteLocks allow for multiple readers or only ONE writer at a time.  They ca
 ##Condition Queues
 A condition queue is a group of threads called the ```wait set``` which are waiting for a particular condition to be true.
 
-Calling ```notifiy``` causes the JVM to select ONE thread to waiting on that condition queue to be waked up.  Calling ```notifyAll``` causes the JVM to wake up ALL threads waiting on that condition queue.
+Calling ```notifiy``` causes the JVM to select ONE thread of its own choosing waiting on that condition queue to be waked up.  Calling ```notifyAll``` causes the JVM to wake up ALL threads waiting on that condition queue.
+
+You must hold the lock on the condition queue to call ```wait```, ```notify```, or ```notifyAll```
+
+
