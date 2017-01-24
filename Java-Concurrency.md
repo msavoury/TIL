@@ -165,3 +165,6 @@ In practice unfair locks perform better since an order doesn't have to be guaran
 
 ##ReadWriteLocks
 ReadWriteLocks allow for multiple readers or only ONE writer at a time.  They can provide better concurrent peformance when reads are frequent and writes are rare.
+
+##Condition Queues
+Calling ```notifiy``` causes the JVM to select ONE thread to waiting on that condition queue to be waked up.  Calling ```notifyAll``` causes the JVM to wake up ALL threads waiting on that condition queue.
