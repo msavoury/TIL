@@ -173,4 +173,13 @@ Calling ```notifiy``` causes the JVM to select ONE thread of its own choosing wa
 
 You must hold the lock on the condition queue to call ```wait```, ```notify```, or ```notifyAll```
 
+###Explicit Condition Queues
+Intrinsic condition queues have a few drawbacks
+- Each intrinsic lock can only have one associated condition queue, meaning several threads may be waiting on different conditions but they are stuck waiting in the same queue
 
+A ```Condition``` is associated with single ```Lock```.
+
+They can be created by using ```Lock.newCondition```
+
+#Hardware support for concurrency
+Modern processors use **compare and swap**
