@@ -182,4 +182,8 @@ A ```Condition``` is associated with single ```Lock```.
 They can be created by using ```Lock.newCondition```
 
 #Hardware support for concurrency
-Modern processors use **compare and swap**
+Using locks is a **pessimistic** approach to concurrency. We can use optimistic techniques with the help of the processor.
+Modern processors use **compare and swap (CAS)** to avoid using locks/blocking.
+
+##Compare and Swap
+In a CAS instruction, the processor takes 3 arguments: A memory location, an expected old value, a new value.  The instruction will update the memory location to the new value but ONLY if the memory location containts the expected old value. Otherwise it does nothing.
