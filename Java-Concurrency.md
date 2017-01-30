@@ -5,40 +5,50 @@ Whether an object needs to be thread safe depends on whether the object will be 
 
 Whenever more than one thread accesses a given state variable and one of them might write to it, they ALL must coordinate their access to it using synchronization.
 
-Compound operations must be atomic in order to preserve the logical conistency of the structure (class invariants)
+Compound operations must be atomic in order to preserve the logical state conistency of the structure (class invariants)
 
 - Stateless objects are always thread safe
-- The ```java.util.concurrent.atomic``` package has a number of classes that can be used to ensure operations are atomic
+- The ```java.util.concurrent.atomic``` package has a number of classes that can be used to ensure operations are atomic, such as AtomicInteger and AtomicReference
 - To preserve state consistency, update related variables in a single atomic operation;
 - Avoid holding locks during lengthy computations or computations that wait on I/O.
 
 ##Intrinsic Locks
-The ```synchronized``` block is a Java feature that helps to ensure atomicity
+In order to be able to ensure that only one thread can access shared mutable state at once, Java has the concept of **locks**. Locks work by granting one and only one thread access to the shared code at a time. Threads must acquire the lock first, then release the lock when done performing the compund action.  All other threads will block on acquiring the lock while the lock is in the hands of another thread.
+
+###Synchronized
+The ```synchronized``` block is a Java feature that helps to ensure atomicity.  It declares the code surrounded by the block as being guarded by a lock.
+```
+int value = 2;
+synchronized (lockGoesHere) {
+  //interfere with some shared state here
+}
+return value;
+```
 
 A synchronized block contains:
 - 1 - A reference to an object that acts as the lock
 - 2 - The block of code guarded by that lock
 
-When a thread tries to enter synchronized code, it must first aquire the lock for that code. If the lock is already held by a different thred, the thread will block.
+When a thread tries to enter synchronized code, it must first aquire the lock for that code. If the lock is already held by a different thread, the thread will block.
 
-Every java object can implicitly act as a lock for the purposes of synchronization.  These locks are called intrinsic locks or monitor locks. At most, one thread can own an intrinsic lock.
+Every java object can implicitly act as a lock for the purposes of synchronization.  These locks are called **intrinsic locks** or monitor locks. At most, one thread can own an intrinsic lock.
 
-Intrinsic locks are ```reentrant``` meaning that if a thread tries to acquire a lock which it already holds, the success will succeed. 
+Intrinsic locks are **reentrant** meaning that if a thread tries to acquire a lock which it already holds, the success will succeed. 
 
 ###Synchronization Gotchas
 It is a MISTAKE to assume that synchronized blocks are only necessary when WRITING to shared variables.
-- If synchronization is used to manage access to a variable, synchronziation is needed EVERYWHERE that the variable is accessed.
+- If synchronization is ever used to manage access to a variable, synchronziation is needed EVERYWHERE that the variable is accessed.
 
-#Visibility
-**In general, there is NO guarantee that a reading thread will see the changes made by a writing thread to a variable.**
+#Memory Visibility
+**In general (without synchronization), there is NO guarantee that a reading thread will see the changes made by a writing thread to a variable.**
 - In order to prevent reading state data, the threads must synchronize on a common lock
 - Always use proper synchronization when data is shared across threads
 ## Volatile Variables
-- Variables can be declared as **volatile**:
+- Variables can be declared as ```volatile```:
 ```
 public volatile int myInt;
 ```
-This guarantees that the compiler will not reorder memory operations regarding this variable and that the JVM will never cache its value is a processor-cache (thereby hiding it from other threads).  Its value will always be retrieved from main memory.
+The ```volatile``` keyword guarantees that the compiler will not reorder memory operations regarding this variable and that the JVM will never cache its value is a processor-cache (thereby hiding it from other threads).  Its value will always be retrieved from main memory.
 
 ###Synchronized Collections
 Even though synchronized collections are themselves thread-safe, compound actions 
