@@ -89,7 +89,7 @@ These classes provide better concurrency support
 A synchronzier is any object that coordinates the control flow of threads based on its state. Synchronizers contain internal state that determines whether threads should have to wait/block or be allowed to proceed.
 
 ##Latches
-- Delays the progress of threads until it reaches its end state
+A **latch** delays the progress of threads until it reaches its end state
 - Acts as a gate, and no thread can pass
 - Once gate is opened, it allows all threads to pass, and cannot be closed again
 - The java class used for this is ```CountDownLatch```
@@ -99,7 +99,7 @@ A synchronzier is any object that coordinates the control flow of threads based 
 ```
 CountDownLatch latch = new CountDownLatch(4);
 latch.countDown();
-latch.await(); //called from separate thread. will block until countDown called 3 more times
+latch.await(); //called from separate thread. will block until countDown is called 3 more times
 ```
 ###FutureTask
 //Fill In
