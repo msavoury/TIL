@@ -51,6 +51,13 @@ public volatile int myInt;
 The ```volatile``` keyword guarantees that the compiler will not reorder memory operations regarding this variable and that the JVM will never cache its value is a processor-cache (thereby hiding it from other threads).  Its value will always be retrieved from main memory.
 
 ###Synchronized Collections
+Out of the box, the java Collections classes are not thread-safe. However, they can be wrapped in thread safe **wrappers** to provide thread-safe guarantees when needed using ```Collections.synchronizedXXX```
+```
+List<Integer> syncList = Collections.synchronizedList(new ArrayList<Integer>());
+Set<Double> syncSet = Collections.synchronizedSet(new HashSet<Double>());
+```
+**It is best to not keep a reference to the underlying collection, to avoid modifying directly, bypassing thread-safety guarantees**
+
 Even though synchronized collections are themselves thread-safe, compound actions 
 can cause clients to see unexpected results.  For this reason, it is important
 to synchronize on the lock of the collection itself
