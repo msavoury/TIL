@@ -78,15 +78,17 @@ public static Object getLast(Vector list) {
 ###Concurrent collections
 Java 5.0 added concurrent collections which improved upon the synchronized
 collections. Some of these classes include:
-- ConcurrentHashMap
-- ConcurrentSkipListMap
-- ConcurrentSkipListSet
+- ```ConcurrentHashMap```
+- ```CopyOnWriteArrayList```
+- ```ConcurrentSkipListMap```
+- ```ConcurrentSkipListSet```
 
 These classes provide better concurrency support
 
-##Synchronizers
-A synchronzier is any object that coordinates the control flow of threads based on its state
-###Latches
+#Synchronizers
+A synchronzier is any object that coordinates the control flow of threads based on its state. Synchronizers contain internal state that determines whether threads should have to wait/block or be allowed to proceed.
+
+##Latches
 - Delays the progress of threads until it reaches its end state
 - Acts as a gate, and no thread can pass
 - Once gate is opened, it allows all threads to pass, and cannot be closed again
