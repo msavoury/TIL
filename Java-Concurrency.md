@@ -5,7 +5,7 @@ Whether an object needs to be thread safe depends on whether the object will be 
 
 Whenever more than one thread accesses a given state variable and one of them might write to it, they ALL must coordinate their access to it using synchronization.
 
-Compound Actions must be atomic in order to preserve the class invariants
+Compound operations must be atomic in order to preserve the logical conistency of the structure (class invariants)
 
 - Stateless objects are always thread safe
 - The ```java.util.concurrent.atomic``` package has a number of classes that can be used to ensure operations are atomic
