@@ -102,8 +102,32 @@ latch.countDown();
 latch.await(); //called from separate thread. will block until countDown is called 3 more times
 ```
 ##FutureTask
-//Fill In
+A ```FutureTask``` is a computation that has been wrapped with methods such as ```get```. It can be run in a separate thread by wrapping the task in a ```Thread``` object. The best way to explain is through an example:
+```
+Callable<Integer> callable1 = generateCallable();
+        Callable<Integer> callable2 = generateCallable();
 
+        FutureTask<Integer> task1 = new FutureTask<Integer>(callable1);
+        FutureTask<Integer> task2 = new FutureTask<Integer>(callable2);
+        Thread t1 = new Thread(task1);
+        Thread t2 = new Thread(task2);
+        t1.start();
+        t2.start();
+        System.out.println("Called run method"); //This is printed immediately
+        try {
+            int result = task1.get();
+            int result2 = task2.get();
+            System.out.println("Result1 is " + result);
+            System.out.println("Result2 is " + result2);
+        }
+        catch(ExecutionException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        catch(InterruptedException ie) {
+            System.out.println(ie.getMessage() + ie.getCause());
+        }
+```
 ###Semaphores
 Counting semaphores are used to restrict the number of threads that can access a resource at the same time
 - A semaphore manages a set number of permits, and activities acquire permits, and then release them
