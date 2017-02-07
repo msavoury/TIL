@@ -141,12 +141,12 @@ reached, it releases them all again and waits till the next round.
 //fill in
 
 ## Executor Framework
-Provides a standard means of decoupling task submission from task execution,
-describing tasks with Runnable.
+The Executor Framework provides a standard means of decoupling task submission from task execution,
+describing tasks with ```Runnable```. This means that the author simply has to worry about writing the tasks, and the executor will worry about how/when those tasks will be run.  Each implementation of the ```Executor``` interface can describe it's own policy of running tasks, whether it be single-threaded, multi-threaded, use thread pools, etc...
 
-```Executor``` is a java interface with one method: ```execute(Runnable r)```
+```Executor``` is the java interface with one method: ```execute(Runnable r)```
 
-Example of a webserver implemented using an Executor
+Example of a webserver implemented using an Executor. This example will handle each request in a separate thread that is borrowed from a thread pool with a size of 100.
 ```
 Executor exec = Executors.newFixedThreadPool(100);
 //...other code
@@ -163,7 +163,17 @@ of the Executor to serve the application's needs.  In the above case, it is
 using a thread pool, but it could be changed to use any of various Executor 
 implementations.
 
-###Timed Locks
+###ExecutorService
+The ```ExecutorService``` extends ```Executor``` to provide lifecycle management methods to an Executor. These methods allow for graceful (or non-graceful) shutdown of an Executor. Some of the methods that it implements are:
+```
+void shutdown();
+List<Runnable> shutdownNow();
+boolean isShutdown();
+boolean isTerminated();
+void awaitTermination(long timeout, TimeUnit unit);
+```
+
+#Timed Locks
 Explicit locks have a ```tryLock``` method which will try a lock for a specified period of time.   If the lock cannot be acquired during the specified time, it'll give you a chance to try something else.
 
 ```The principal threat to scalability in concurrent applications is the exclusive resource lock```
