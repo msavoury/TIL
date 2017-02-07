@@ -172,6 +172,8 @@ boolean isShutdown();
 boolean isTerminated();
 void awaitTermination(long timeout, TimeUnit unit);
 ```
+###CompletionService
+The ```CompletionService``` can be seen as a combination of an ExecutorService and a BlockingQueue. Tasks are submitted to the service, and can be retrieve by calling ```take``` on the service. The call will block until a task has returned a result or has thrown an exception.  This class is helpful for getting result as soon as they become available.
 
 #Timed Locks
 Explicit locks have a ```tryLock``` method which will try a lock for a specified period of time.   If the lock cannot be acquired during the specified time, it'll give you a chance to try something else.
