@@ -15,6 +15,9 @@ ruby -run -e httpd . -p 9090
 ## MySQL
 - use the ```mysqlimport``` utility to import data from flat files
 
+### MySQL dump specified tables
+mysqldump -u... -p... mydb t1 t2 t3 > mydb_tables.sql
+
 ##Command line shortcuts
 - Ctrl P : Previous entry in history
 - Ctrl N : Next entry in history

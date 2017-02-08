@@ -1,4 +1,4 @@
-##Docker
+#Docker
 Check docker status
 ```
 sudo status docker
@@ -6,6 +6,14 @@ sudo start docker
 sudo stop docker
 sudo docker info
 ```
+###Build a docker image from an existing Dockerfile
+```
+SYNTAX:
+docker build -t <image-name> <path-to-dir-containing-dockerfile>
+EXAMPLE:
+docker build -t myCoolImage .
+```
+
 ### Create a new container 
 ```
 docker run -t -i --name my-container-name ubuntu /bin/sh
