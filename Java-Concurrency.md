@@ -12,6 +12,8 @@ Compound operations must be atomic in order to preserve the logical state conist
 - To preserve state consistency, update related variables in a single atomic operation;
 - Avoid holding locks during lengthy computations or computations that wait on I/O.
 
+#Locks
+
 ##Intrinsic Locks
 In order to be able to ensure that only one thread can access shared mutable state at once, Java has the concept of **locks**. Locks work by granting one and only one thread access to the shared code at a time. Threads must acquire the lock first, then release the lock when done performing the compund action.  All other threads will block on acquiring the lock while the lock is in the hands of another thread.
 
@@ -38,6 +40,52 @@ Intrinsic locks are **reentrant** meaning that if a thread tries to acquire a lo
 ###Synchronization Gotchas
 It is a MISTAKE to assume that synchronized blocks are only necessary when WRITING to shared variables.
 - If synchronization is ever used to manage access to a variable, synchronziation is needed EVERYWHERE that the variable is accessed.
+
+##Timed Locks
+Explicit locks have a ```tryLock``` method which will try a lock for a specified period of time.   If the lock cannot be acquired during the specified time, it'll give you a chance to try something else.
+
+```The principal threat to scalability in concurrent applications is the exclusive resource lock```
+
+###Lock Striping
+Some data structures implement lock striping. This is when different subsets of the data structure use different locks to guard access. For example, a concurrent hash map may use different locks for different values in the map.  This increases performance.
+
+##Explicit Locks
+Java 5.0 added ```ReentrantLock```s as part of the standard library. They are an advanced lock that can be used when intrinsic locking proves to be too limited.
+
+You *MUST* unlock the lock in a finally block, to prevent issues if an exception occurs during the 'try':
+```
+Lock myLock = new ReentrantLock();
+try {
+  myLock.lock();
+}
+finally {
+  lock.unlock();
+}
+```
+###tryLock
+The ```tryLock``` method will wait at most a specified period to acquire the lock, else it will return false:
+```
+if (!lock.tryLock(4000,NANOSECONDS)) {
+   return false;
+}
+//here the lock has been acquired
+try {
+  //code requiring lock goes here
+}
+finally {
+   //release lock in finally block
+   lock.unlock();
+}
+```
+//TODO: Explain lock.lockinterruptibly()
+
+###Fairness
+Reentrant locks allow you to specify whether the lock should be fair or unfair.  Fair locks require that the lock be acquired in the order in which the threads request the lock. Unfair locks do not provide this guarantee. (A thread may jump to front of queue and acquire lock)
+
+In practice unfair locks perform better since an order doesn't have to be guaranteed.
+
+##ReadWriteLocks
+ReadWriteLocks allow for multiple readers or only ONE writer at a time.  They can provide better concurrent peformance when reads are frequent and writes are rare.
 
 #Memory Visibility
 **In general (without synchronization), there is NO guarantee that a reading thread will see the changes made by a writing thread to a variable.**
@@ -204,52 +252,6 @@ New tasks submitted in method execute(java.lang.Runnable) will be rejected when 
 - **ThreadPoolExecutor.CallerRunsPolicy**, the thread that invokes execute itself runs the task. This provides a simple feedback control mechanism that will slow down the rate that new tasks are submitted.
 - **ThreadPoolExecutor.DiscardPolicy**, a task that cannot be executed is simply dropped.
 - **ThreadPoolExecutor.DiscardOldestPolicy**, if the executor is not shut down, the task at the head of the work queue is dropped, and then execution is retried (which can fail again, causing this to be repeated.)
-
-#Timed Locks
-Explicit locks have a ```tryLock``` method which will try a lock for a specified period of time.   If the lock cannot be acquired during the specified time, it'll give you a chance to try something else.
-
-```The principal threat to scalability in concurrent applications is the exclusive resource lock```
-
-###Lock Striping
-Some data structures implement lock striping. This is when different subsets of the data structure use different locks to guard access. For example, a concurrent hash map may use different locks for different values in the map.  This increases performance.
-
-#Explicit Locks
-Java 5.0 added ```ReentrantLock```s as part of the standard library. They are an advanced lock that can be used when intrinsic locking proves to be too limited.
-
-You *MUST* unlock the lock in a finally block, to prevent issues if an exception occurs during the 'try':
-```
-Lock myLock = new ReentrantLock();
-try {
-  myLock.lock();
-}
-finally {
-  lock.unlock();
-}
-```
-##tryLock
-The ```tryLock``` method will wait at most a specified period to acquire the lock, else it will return false:
-```
-if (!lock.tryLock(4000,NANOSECONDS)) {
-   return false;
-}
-//here the lock has been acquired
-try {
-  //code requiring lock goes here
-}
-finally {
-   //release lock in finally block
-   lock.unlock();
-}
-```
-//TODO: Explain lock.lockinterruptibly()
-
-###Fairness
-Reentrant locks allow you to specify whether the lock should be fair or unfair.  Fair locks require that the lock be acquired in the order in which the threads request the lock. Unfair locks do not provide this guarantee. (A thread may jump to front of queue and acquire lock)
-
-In practice unfair locks perform better since an order doesn't have to be guaranteed.
-
-##ReadWriteLocks
-ReadWriteLocks allow for multiple readers or only ONE writer at a time.  They can provide better concurrent peformance when reads are frequent and writes are rare.
 
 ##Condition Queues
 A condition queue is a group of threads called the ```wait set``` which are waiting for a particular condition to be true.
